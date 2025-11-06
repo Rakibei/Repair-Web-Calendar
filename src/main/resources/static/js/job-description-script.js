@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
       work_time_minutes: parseInt(btn.dataset.jobWorkTime || 0),
       price_per_minute: parseFloat(btn.dataset.jobPrice || 0),
       date: btn.dataset.jobDate,
-      status: { id: btn.dataset.jobStatusId }
-  };
+      status: { id: btn.dataset.jobStatusId },
+    };
     if (window.openEditJobModal) window.openEditJobModal(job);
   });
 
