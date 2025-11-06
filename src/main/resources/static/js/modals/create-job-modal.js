@@ -21,12 +21,6 @@
   document.getElementById('createJobForm')?.addEventListener('submit', function (e) {
     e.preventDefault(); // Prevent page reload
 
-    // Format date and time as DateTime
-    const dateValue = document.getElementById('jobDate').value;
-    const timeValue = document.getElementById('jobTime').value;
-
-    const isoString = `${dateValue}T${timeValue}:00`; // "2025-10-28T13:45:00"
-
     // Collect and sanitize form data into a payload object
     const payload = {
       title: document.getElementById('jobTitle').value,
@@ -36,7 +30,7 @@
       work_time_minutes: parseInt(document.getElementById('workTime').value || '0', 10),
       price_per_minute: parseFloat(document.getElementById('pricePerMin').value || '0'),
       duration: parseFloat(document.getElementById('jobDuration').value || '0'),
-      date: isoString,
+      date: toIsoLocal(document.getElementById('jobDateTime').value),
       status: { id: parseInt(document.getElementById('jobStatus').value, 10) },
     };
 

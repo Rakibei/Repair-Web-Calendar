@@ -20,10 +20,10 @@ public class SearchController {
     this.productService = productService;
   }
 
-  @GetMapping("/job")
-  public List<Job> searchRepair(@RequestParam String q) {
-    return jobService.search(q);
-  }
+    @GetMapping("/job")
+    public List<Job> searchJobs(@RequestParam("q") String query) {
+        return jobService.search(query);
+    }
 
   @GetMapping("/repair")
   public List<Product> searchProduct(@RequestParam String q) {

@@ -59,71 +59,69 @@ document.addEventListener('DOMContentLoaded', function () {
   completedBtn?.addEventListener('click', () => applyFilter('completed'));
 });
 
-// Eventlistener for the seach-input form
-document.getElementById('search-input').addEventListener('submit', async (e) => {
-  e.preventDefault();
+// Continuous search as you type (debounced)
+const searchInput = document.getElementById('searchparams');
+let searchTimeout = null;
+
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(runSearch, 300); // 300ms debounce
+});
+
+async function runSearch() {
   let matches;
+  const searchParam = searchInput.value.trim();
 
-  // Get search params from the input field
-  let searchParam = document.getElementById('searchparams').value;
-
-  // If the search bar input is empty, show all repairs
   if (!searchParam) {
     matches = await fetchAllRepairs();
   } else {
     matches = await fetchSearchMatches(searchParam);
   }
 
-  // Remove existing elements
-  let tablebody = document.getElementById('table-body');
-  tablebody.innerHTML = '';
+  const tableBody = document.getElementById('table-body');
+  tableBody.innerHTML = '';
 
-  // If no matches found
-  if (!matches[0]) {
-    let noMatchesMessage = document.createElement('td');
+  if (!matches || !matches.length) {
+    const noMatchesMessage = document.createElement('td');
     noMatchesMessage.innerHTML = 'Ingen reparationer fundet...';
     noMatchesMessage.className = 'w-20';
-    tablebody.appendChild(noMatchesMessage);
-  } else {
-    // Create a new row for each search match
-    matches.forEach((match) => {
-      let newRow = document.createElement('tr');
-      newRow.style.cursor = 'pointer';
-      newRow.dataset.href = `/jobliste/${match.id}`;
-      newRow.addEventListener('click', () => (window.location.href = newRow.dataset.href));
-
-      newRow.innerHTML = `
-                  <td class="w-15">
-                    <div class="d-flex flex-column gap-1">
-                      <p class="fw-bolder mb-1">${match.title || ''}</p>
-                      <p class="mb-0">${match.customer_name || ''}</p>
-                      <p>${match.customer_phone || ''}</p>
-                    </div>
-                  </td>
-                  <td class="w-15">
-                    <div>
-                      <span class="job-status" >${match.status.name || ''}</span>
-                    </div>
-                  </td>
-                  <td class="w-30">
-                    <div class="w-75">
-                      <p>${match.job_description || ''}</p>
-                    </div>
-                  </td>
-                  <td class="w-30">${formatDate(match.date || '')}</td>
-                `;
-
-      // Append to the table-body
-      tablebody.appendChild(newRow);
-    });
-
-    // Reformat badges
-    formatStatusBadges();
-
-    // Highlight the inputfields text, so that the user quickly can perform a new search
-    document.getElementById('searchparams').select();
+    tableBody.appendChild(noMatchesMessage);
+    return;
   }
-});
+
+  matches.forEach((match) => {
+    const newRow = document.createElement('tr');
+    newRow.style.cursor = 'pointer';
+    newRow.dataset.href = `/jobliste/${match.id}`;
+    newRow.addEventListener('click', () => (window.location.href = newRow.dataset.href));
+
+    newRow.innerHTML = `
+      <td class="w-15">
+        <div class="d-flex flex-column gap-1">
+          <p class="fw-bolder mb-1">${match.title || ''}</p>
+          <p class="mb-0">${match.customer_name || ''}</p>
+          <p>${match.customer_phone || ''}</p>
+        </div>
+      </td>
+      <td class="w-15">
+        <div>
+          <span class="job-status">${match.status?.name || ''}</span>
+        </div>
+      </td>
+      <td class="w-30">
+        <div class="w-75">
+          <p>${match.job_description || ''}</p>
+        </div>
+      </td>
+      <td class="w-30">${formatDate(match.date || '')}</td>
+    `;
+
+    tableBody.appendChild(newRow);
+  });
+
+  // Reapply badge formatting
+  formatStatusBadges();
+}
 
 // Function to format the date
 function formatDate(dateString) {
