@@ -28,27 +28,29 @@ document.addEventListener('DOMContentLoaded', () => {
   // Open Edit modal with the current job prefilled via the module
   document.getElementById('openEditBtn')?.addEventListener('click', (e) => {
     e.preventDefault();
-    // Collect job values using Thymeleaf inlined expressions (note: these become raw values on the client)
+    const btn = e.currentTarget;
     const job = {
-      id: '[[${job.id}]]' || '',
-      title: '[[${job.title}]]',
-      customer_name: '[[${job.customer_name}]]',
-      customer_phone: '[[${job.customer_phone}]]',
-      work_time_minutes: '[[${job.work_time_minutes}]]' || 0,
-      price_per_minute: '[[${job.price_per_minute}]]' || 0,
-      date: "[[${#temporals.format(job.date, 'yyyy-MM-dd''T''HH:mm')}]]" || '',
-      status: { id: '[[${job.status.id}]]' || 1 },
-    };
-    // Call modal opener if available
+      id: btn.dataset.jobId,
+      title: btn.dataset.jobTitle,
+      customer_name: btn.dataset.jobCustomerName,
+      customer_phone: btn.dataset.jobCustomerPhone,
+      work_time_minutes: parseInt(btn.dataset.jobWorkTime || 0),
+      price_per_minute: parseFloat(btn.dataset.jobPrice || 0),
+      date: btn.dataset.jobDate,
+      status: { id: btn.dataset.jobStatusId }
+  };
     if (window.openEditJobModal) window.openEditJobModal(job);
   });
 
   // Open Description modal and pass current description text
   document.getElementById('openDescBtn')?.addEventListener('click', (e) => {
     e.preventDefault();
-    const id = '[[${job.id}]]' || '';
-    const current = document.getElementById('jobDescriptionText')?.textContent ?? '';
-    if (window.openDescriptionModal) window.openDescriptionModal(id, current.trim());
+    const btn = e.currentTarget;
+    const job = {
+      id: btn.dataset.jobId,
+      desc: btn.dataset.jobDesc,
+    };
+    if (window.openDescriptionModal) window.openDescriptionModal(job);
   });
 
   // Event listener for the "tilføj product" btn

@@ -43,16 +43,15 @@
   /**
    * Expose a global helper to open the modal and prefill form fields.
    * Used when editing an existing job description.
-   * @param {number|string} jobId - The job’s unique ID
-   * @param {string} currentText - The current job description
+   * @param {Object} job - Job object with fields id and job_description.
    */
-  window.openDescriptionModal = function (jobId, currentText) {
+  window.openDescriptionModal = function (job) {
     const ta = document.getElementById('job_description_desc');
     const idEl = document.getElementById('jobIdDesc');
 
     // Pre-fill the form with the current job data
-    if (idEl) idEl.value = jobId;
-    if (ta) ta.value = currentText || '';
+    if (idEl) idEl.value = job.id;
+    if (ta) ta.value = job.desc || '';
 
     // Display the modal
     descModal.show();

@@ -94,7 +94,7 @@ public class JobController {
         existing.setTitle(job.getTitle());
         existing.setCustomer_name(job.getCustomer_name());
         existing.setCustomer_phone(job.getCustomer_phone());
-        existing.setJob_description(job.getJob_description());
+        //existing.setJob_description(job.getJob_description());
         existing.setWork_time_minutes(job.getWork_time_minutes());
         existing.setDuration(job.getDuration());
         existing.setPrice_per_minute(job.getPrice_per_minute());
