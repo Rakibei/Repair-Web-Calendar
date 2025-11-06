@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class SearchController {
 
-    private final JobService jobService;
-    private final productService productService;
+  private final JobService jobService;
+  private final productService productService;
 
-    public SearchController(JobService jobService, productService productService) {
-        this.jobService = jobService;
-        this.productService = productService;
-    }
+  public SearchController(JobService jobService, productService productService) {
+    this.jobService = jobService;
+    this.productService = productService;
+  }
 
-    @GetMapping("/job")
-    public List<Job> searchRepair(@RequestParam String q) {
-        return jobService.search(q);
-    }
+  @GetMapping("/job")
+  public List<Job> searchJobs(@RequestParam("q") String query) {
+    return jobService.search(query);
+  }
 
-    @GetMapping("/repair")
-    public List<Product> searchProduct(@RequestParam String q) {
-        return productService.search(q);
-    }
+  @GetMapping("/repair")
+  public List<Product> searchProduct(@RequestParam String q) {
+    return productService.search(q);
+  }
 }
