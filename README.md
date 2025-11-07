@@ -11,7 +11,7 @@ Database resources repo: https://github.com/Rakibei/p3-database
 - Build/Package Manager: Maven (with Maven Wrapper `mvnw`/`mvnw.cmd`)
 - Env loading: `spring-dotenv` (reads `.env` at project root)
 - Frontend assets: WebJars (Bootstrap 5.3, jQuery 3.7) + static resources under `src/main/resources/static`
-- Dev tooling (optional): Node.js + Prettier (with `prettier-plugin-java`)
+- Optional Dev tooling: Node.js + Prettier (with `prettier-plugin-java`)
 
 ## Requirements
 - Java 21 (JDK)
