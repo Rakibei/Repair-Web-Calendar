@@ -90,10 +90,12 @@ Before opening a PR, please:
 
 PR Checklist:
 
-- [ ] Code builds and tests pass locally
-- [ ] Formatting applied (Prettier)
-- [ ] Tests added/updated (if applicable)
-- [ ] Docs updated (if applicable)
+- [ ] Builds pass locally: `mvn clean verify` (and `npm run build` if frontend changes)
+- [ ] All tests passed or updated as needed
+- [ ] Linting/formatting applied (Prettier, code style)
+- [ ] Documentation updated (README/CONTRIBUTING/API)
+- [ ] No secrets or sensitive data committed
+- [ ] Backward compatibility considered or migration provided
 
 ## Issue Reports & Feature Requests
 
