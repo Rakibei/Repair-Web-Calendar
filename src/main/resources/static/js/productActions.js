@@ -1,5 +1,5 @@
 // Imports
-import {handleFetchErrors} from '/js/utils/fetchUtils.js';
+import {handleFetchErrors} from '/utils/fetchUtils.js';
 
 /* --- DELETE PRODUCT --- */
 // Wait until the entire DOM (HTML structure) has loaded before running the script
