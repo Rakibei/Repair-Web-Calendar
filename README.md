@@ -149,7 +149,3 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on environment set
 ## License
 
 This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.
-
-## Acknowledgements
-
-- Generated sections based on Spring Boot conventions; see [`HELP.md`](HELP.md) for official references and guides.
