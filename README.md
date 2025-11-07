@@ -55,8 +55,7 @@ Notes:
 
 ## Setup
 
-1. Ensure PostgreSQL is running and that the configured database/user exists.
-   - TODO: Document database initialization steps and schema, or link to migration scripts once available.
+1. Ensure PostgreSQL is running and that the configured database exists.
 2. Create `.env` (see above) with valid connection details.
 3. Build the project to download dependencies:
 
@@ -89,13 +88,6 @@ java -jar target/project-0.0.1-SNAPSHOT.jar
 ./mvnw spring-boot:build-image
 ```
 
-## Scripts (npm)
-
-Formatting with Prettier is available via npm scripts (Node.js optional):
-
-- Check: `npm run prettier:check`
-- Write: `npm run prettier:write`
-
 ## Application Entry Point
 
 - Main class: `mainProgram.MainApplication`
@@ -114,17 +106,6 @@ Formatting with Prettier is available via npm scripts (Node.js optional):
   - `PUT  /api/products/{id}` → update product
   - `DELETE /api/products/{id}` → delete product
   - Additional controllers exist (e.g., `PartController`, `SearchController`, `JobController`); see source for full details.
-
-## Tests
-
-- Run unit tests:
-
-```
-./mvnw test
-# Windows: .\mvnw.cmd test
-```
-
-- Example test class: `src/test/java/mainProgram/MainApplicationTests.java`
 
 ## Project Structure (high level)
 
@@ -161,6 +142,10 @@ Formatting with Prettier is available via npm scripts (Node.js optional):
 - Port already in use: change `server.port` in `application.properties` or free port 9000.
 - Templates not updating: ensure template cache is disabled (it is by default in this project) and you’re running in dev mode.
 
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on environment setup, formatting, testing, branching strategy, and the PR checklist.
+
 ## License
 
-This project is licensed under the MIT License. See the [`LICENSE`](./LICENSE) file for details.
+This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.
