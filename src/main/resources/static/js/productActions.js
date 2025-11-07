@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Old value before the change
             const oldValue = ev.target.dataset.originalValue;
 
-            // Only send update/PUT request if the value is actually changed
+            // Only send an update /PUT request if the value is actually changed
             if (newValue !== oldValue) {
               // Send the update to the backend via PUT request and capture the updated product returned by the server
               const updatedProduct = await updateProduct(productId, { [field]: newValue });
@@ -202,7 +202,7 @@ function formatPrice(value) {
   const num = Number(value);
   if (!Number.isFinite(num)) return String(value) + ' Kr.';
   try {
-    // Danish-style formatting (e.g., 1.234,50) could be 'da-DK', but template uses explicit decimal places.
+    // Danish-style formatting (e.g., 1.234,50) could be 'da-DK', but the template uses explicit decimal places.
     // We'll ensure 2 decimals and append the currency suffix used in the table.
     return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Kr.';
   } catch (_) {
@@ -223,7 +223,7 @@ async function refreshRowFromServer(row, productId) {
   try {
     product = await fetchProduct(productId);
   } catch (err) {
-    // Fallback to last PUT response stored on the row
+    // Fallback to the last PUT response stored on the row
     if (row.dataset.updatedProduct) {
       try { product = JSON.parse(row.dataset.updatedProduct); } catch (_) { /* ignore */ }
     }
