@@ -5,6 +5,7 @@ A Java Spring Boot web application for managing repair jobs with a calendar and 
 Database resources repo: https://github.com/Rakibei/p3-database
 
 ## Stack
+
 - Language: Java 21
 - Frameworks/Libraries: Spring Boot 3.5.x (Web, Data JPA, Validation, DevTools), Thymeleaf, Jackson JSR310
 - Database: PostgreSQL (JPA/Hibernate)
@@ -14,26 +15,31 @@ Database resources repo: https://github.com/Rakibei/p3-database
 - Optional Dev tooling: Node.js + Prettier (with `prettier-plugin-java`)
 
 ## Requirements
+
 - Java 21 (JDK)
 - Maven Wrapper (included) — no need to install Maven separately
 - PostgreSQL 14+ running locally
 - Optional: Node.js 18+ and npm (only for formatting via Prettier)
 
 ## Environment Configuration
+
 Configuration is done via `.env` at the project root and `src/main/resources/application.properties`.
 
-1) Copy the example env file and edit values as needed:
+1. Copy the example env file and edit values as needed:
+
 ```
 cp env.example .env
 # On Windows (PowerShell): Copy-Item env.example .env
 ```
 
-2) Required environment variables (see `env.example`):
+2. Required environment variables (see `env.example`):
+
 - `JDBC_DATABASE_URL` — e.g. `jdbc:postgresql://localhost:5432/appdb`
 - `POSTGRES_USER` — database user
 - `POSTGRES_PASSWORD` — database password
 
 `application.properties` wires these into Spring:
+
 ```
 spring.datasource.url=${JDBC_DATABASE_URL}
 spring.datasource.username=${POSTGRES_USER}
@@ -43,48 +49,60 @@ spring.jpa.hibernate.ddl-auto=update
 ```
 
 Notes:
+
 - The app defaults to port `9000`.
 - JPA `ddl-auto=update` will auto-create/update tables in development; consider using `validate` or migrations in production. TODO: add Flyway/Liquibase if needed.
 
 ## Setup
-1) Ensure PostgreSQL is running and that the configured database/user exists.
+
+1. Ensure PostgreSQL is running and that the configured database/user exists.
    - TODO: Document database initialization steps and schema, or link to migration scripts once available.
-2) Create `.env` (see above) with valid connection details.
-3) Build the project to download dependencies:
+2. Create `.env` (see above) with valid connection details.
+3. Build the project to download dependencies:
+
 ```
 ./mvnw -q -DskipTests package
 # On Windows: .\mvnw.cmd -q -DskipTests package
 ```
 
 ## Run
+
 - Using Maven (development):
+
 ```
 ./mvnw spring-boot:run
 # Windows: .\mvnw.cmd spring-boot:run
 ```
+
 Then open http://localhost:9000
 
 - Running the packaged JAR:
+
 ```
 ./mvnw -DskipTests package
 java -jar target/project-0.0.1-SNAPSHOT.jar
 ```
 
 - Optional: Build an OCI image (if you have a container runtime):
+
 ```
 ./mvnw spring-boot:build-image
 ```
 
 ## Scripts (npm)
+
 Formatting with Prettier is available via npm scripts (Node.js optional):
+
 - Check: `npm run prettier:check`
 - Write: `npm run prettier:write`
 
 ## Application Entry Point
+
 - Main class: `mainProgram.MainApplication`
 - Location: `src/main/java/mainProgram/MainApplication.java`
 
 ## Endpoints and Pages
+
 - Server-rendered pages (Thymeleaf) via `PageController`:
   - `/` → redirects to `/kalender`
   - `/kalender` → calendar view (template `calendar.html`)
@@ -98,14 +116,18 @@ Formatting with Prettier is available via npm scripts (Node.js optional):
   - Additional controllers exist (e.g., `PartController`, `SearchController`, `JobController`); see source for full details.
 
 ## Tests
+
 - Run unit tests:
+
 ```
 ./mvnw test
 # Windows: .\mvnw.cmd test
 ```
+
 - Example test class: `src/test/java/mainProgram/MainApplicationTests.java`
 
 ## Project Structure (high level)
+
 ```
 .
 ├─ pom.xml                           # Maven build config
@@ -128,17 +150,21 @@ Formatting with Prettier is available via npm scripts (Node.js optional):
 ```
 
 ## Development Notes
+
 - Live reload: `spring-boot-devtools` is included; when using your IDE or `spring-boot:run`, changes may trigger restarts.
 - Thymeleaf caching is disabled in `application.properties` for easier template development.
 - WebJars provide Bootstrap and jQuery without external CDNs.
 
 ## Troubleshooting
+
 - Cannot connect to DB: verify `.env` is loaded and values match your PostgreSQL instance.
 - Port already in use: change `server.port` in `application.properties` or free port 9000.
 - Templates not updating: ensure template cache is disabled (it is by default in this project) and you’re running in dev mode.
 
 ## License
-- TODO: Add a license file (e.g., MIT/Apache-2.0) and update `pom.xml` license metadata.
+
+This project is licensed under the MIT License. See the [`LICENSE`](./LICENSE) file for details.
 
 ## Acknowledgements
+
 - Generated sections based on Spring Boot conventions; see `HELP.md` for official references and guides.

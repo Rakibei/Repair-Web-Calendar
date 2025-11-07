@@ -26,7 +26,6 @@ public class JobRepositoryImpl implements SearchableRepository<Job> {
              OR LOWER(j.job_description) LIKE LOWER(CONCAT('%', :kw, '%'))
              OR LOWER(j.customer_name) LIKE LOWER(CONCAT('%', :kw, '%'))
              OR LOWER(j.customer_phone) LIKE LOWER(CONCAT('%', :kw, '%'))
-             OR LOWER(s.name) LIKE LOWER(CONCAT('%', :kw, '%'))
           ORDER BY j.date DESC
       """;
 

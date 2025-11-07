@@ -6,7 +6,6 @@ import mainProgram.repository.ProductRepository;
 import mainProgram.table.JobPart;
 import mainProgram.table.Product;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,11 +34,5 @@ public class PartController {
   @ResponseBody
   public List<JobPart> getAllProducts() {
     return jobPartRepository.findAll();
-  }
-
-  @GetMapping("api/products/{id}")
-  @ResponseBody
-  public List<JobPart> getAllProducts(@PathVariable int id) {
-    return jobPartRepository.findByJobId(id);
   }
 }

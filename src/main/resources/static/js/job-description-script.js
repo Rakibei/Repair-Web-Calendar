@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: btn.dataset.jobTitle,
       customer_name: btn.dataset.jobCustomerName,
       customer_phone: btn.dataset.jobCustomerPhone,
+      job_description: btn.dataset.jobDesc,
       work_time_minutes: parseInt(btn.dataset.jobWorkTime || 0),
       price_per_minute: parseFloat(btn.dataset.jobPrice || 0),
       date: btn.dataset.jobDate,
