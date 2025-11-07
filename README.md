@@ -164,7 +164,3 @@ Formatting with Prettier is available via npm scripts (Node.js optional):
 ## License
 
 This project is licensed under the MIT License. See the [`LICENSE`](./LICENSE) file for details.
-
-## Acknowledgements
-
-- Generated sections based on Spring Boot conventions; see `HELP.md` for official references and guides.
