@@ -96,6 +96,11 @@ async function runSearch() {
     newRow.addEventListener('click', () => (window.location.href = newRow.dataset.href));
 
     newRow.innerHTML = `
+      <td class="w-5">
+        <div>
+          <p class="fw-bolder mb-1">${match.id}</p>
+        </div>
+      </td>
       <td class="w-15">
         <div class="d-flex flex-column gap-1">
           <p class="fw-bolder mb-1">${match.title || ''}</p>

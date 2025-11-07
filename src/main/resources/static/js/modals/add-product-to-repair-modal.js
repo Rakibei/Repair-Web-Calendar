@@ -45,7 +45,7 @@ let modalProducts = [];
       matches.forEach((match) => {
         let newResult = document.createElement('tr');
         newResult.addEventListener('click', (e) => {
-          // The if the product is already on the list. If it is, increate the quantity by one. If not, add the products to the list.
+          // If the product is already on the list. If it is, increase the quantity by one. If not, add the products to the list.
           const existing = modalProducts.find((p) => p.product.id === match.id);
 
           if (existing) {
@@ -68,7 +68,7 @@ let modalProducts = [];
                     <div class="d-flex justify-content-between gap-5">
                         <div>
                            <p class="fs-6 mb-0">EAN</p>
-                           <p class="text-secondary mb-0 fs-7">${match.ean}</p> <!-- EAN has to be lowercase (ean), beucase the JSON ojbect "match" from the HTTP repose, are lowercase -->
+                           <p class="text-secondary mb-0 fs-7">${match.ean}</p> <!-- EAN has to be lowercase (ean), because the JSON ojbect "match" from the HTTP repose are lowercase -->
                         </div>
                            <div>
                            <p class="fs-6 mb-0">Pris</p>
@@ -220,37 +220,3 @@ function getRepairIdFromUrl() {
   const parts = window.location.pathname.split('/');
   return parseInt(parts[parts.length - 1], 10);
 }
-
-/// Depreciated
-/*
-function addNewProductToTable(name, amount, productPrice) {
-    const tableBody = document.getElementById('table-body');
-    const newProduct = document.createElement('tr');
-
-    newProduct.innerHTML = `
-        <td class="w-15">
-            <p class="mt-0">${name}</p>
-        </td>
-        <td class="w-15">
-            <p class="mt-0">${amount}</p>
-        </td>
-        <td class="w-30">
-            <p class="mt-0">${productPrice}</p>
-        </td>
-        <td class="w-30">
-            <p class="mt-0">${productPrice}</p>
-        </td>
-        <td class="w-10 text-center">
-            <button type="button" class="btn btn-sm btn-danger remove-btn">X</button>
-        </td>
-    `;
-
-    // Add event listener to the button
-    newProduct.querySelector('.remove-btn').addEventListener('click', () => {
-        newProduct.remove();
-    });
-
-    // Append to the table body
-    tableBody.appendChild(newProduct);
-}
-*/

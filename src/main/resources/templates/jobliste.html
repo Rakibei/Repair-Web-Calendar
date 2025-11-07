@@ -70,6 +70,7 @@
       <table class="table table-hover align-middle mt-lg-3">
         <thead>
           <tr>
+            <th scope="col">ID</th>
             <th scope="col">Ordreinformationer</th>
             <th scope="col">Status</th>
             <th scope="col">Beskrivelse</th>
@@ -79,6 +80,12 @@
         <tbody id="table-body">
           <!-- Iterate jobs with Thymeleaf th:each; data-href stores the details URL for row-click navigation -->
           <tr th:each="job : ${jobs}" th:attr="data-href=@{/jobliste/{id}(id=${job.id})}" style="cursor: pointer">
+            <td class="w-5">
+              <div>
+                <!-- Title, customer and phone populated from job -->
+                <p class="fw-bolder mb-1" th:text="${job.id}"></p>
+              </div>
+            </td>
             <td class="w-15">
               <div class="d-flex flex-column gap-1">
                 <!-- Title, customer and phone populated from job -->

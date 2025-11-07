@@ -1,5 +1,5 @@
 // Imports
-import { handleFetchErrors } from '/js/utils/fetchUtils.js';
+import {handleFetchErrors} from '/js/utils/fetchUtils.js';
 
 /* --- DELETE PRODUCT --- */
 // Wait until the entire DOM (HTML structure) has loaded before running the script
@@ -93,7 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
           // Make the cell content editable
           cell.setAttribute('contenteditable', 'true');
 
-          // Store the original value in a data attribute for comparison later
+          // If editing the price cell, remove the trailing currency ("Kr."/"Kr") so the user edits a clean number
+          const fieldName = cell.getAttribute('data-field');
+          if (fieldName === 'price') {
+            cell.textContent = cell.textContent.trim().replace(/\s*Kr\.?$/i, '');
+          }
+
+          // Store the original value in a data attribute for comparison later (after any cleaning)
           cell.dataset.originalValue = cell.textContent;
 
           // Listen for when the user finishes editing a cell (also called a "blur event")
@@ -115,8 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Only send update/PUT request if the value is actually changed
             if (newValue !== oldValue) {
-              // Send the update to the backend via PUT request
-              await updateProduct(productId, { [field]: newValue });
+              // Send the update to the backend via PUT request and capture the updated product returned by the server
+              const updatedProduct = await updateProduct(productId, { [field]: newValue });
+
+              // If we got a product back, stash it on the row so we can refresh the UI later when edit mode ends
+              if (updatedProduct) {
+                row.dataset.updatedProduct = JSON.stringify(updatedProduct);
+              }
 
               // Update the originalValue to prevent duplicate updates
               ev.target.dataset.originalValue = newValue; // Update reference value
@@ -139,6 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
           cell.removeAttribute('contenteditable'); // Removes editing ability
           delete cell.dataset.originalValue; // Removing original value data
         });
+
+        // Refresh the row content from server (or last PUT response) so the UI shows authoritative values
+        try {
+          await refreshRowFromServer(row, productId);
+        } catch (err) {
+          console.error('Failed to refresh product row:', err);
+        }
+
+        // Clean up any temporary data
+        delete row.dataset.updatedProduct;
       }
     });
   });
@@ -166,8 +187,59 @@ async function updateProduct(productId, updatedData) {
 
     // Handle any fetch errors (network issues, server errors)
     await handleFetchErrors(response);
+
+    // Return the updated product from the server so the UI can refresh accurately
+    return await response.json();
   } catch (error) {
     // Log error
     console.error('Error updating product:', error);
+    return null;
   }
+}
+
+/* --- Helper: Format price consistently with UI --- */
+function formatPrice(value) {
+  const num = Number(value);
+  if (!Number.isFinite(num)) return String(value) + ' Kr.';
+  try {
+    // Danish-style formatting (e.g., 1.234,50) could be 'da-DK', but template uses explicit decimal places.
+    // We'll ensure 2 decimals and append the currency suffix used in the table.
+    return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Kr.';
+  } catch (_) {
+    return num.toFixed(2) + ' Kr.';
+  }
+}
+
+/* --- Helper: GET product by ID --- */
+async function fetchProduct(productId) {
+  const response = await fetch(`/api/products/${productId}`, { method: 'GET' });
+  await handleFetchErrors(response);
+  return await response.json();
+}
+
+/* --- Helper: Refresh row from server (or fallback to last PUT response) --- */
+async function refreshRowFromServer(row, productId) {
+  let product = null;
+  try {
+    product = await fetchProduct(productId);
+  } catch (err) {
+    // Fallback to last PUT response stored on the row
+    if (row.dataset.updatedProduct) {
+      try { product = JSON.parse(row.dataset.updatedProduct); } catch (_) { /* ignore */ }
+    }
+  }
+
+  if (!product) return; // nothing to refresh
+
+  // Update each cell with authoritative values
+  const fields = ['productNumber', 'name', 'EAN', 'type', 'price'];
+  fields.forEach((field) => {
+    const cell = row.querySelector(`td[data-field="${field}"]`);
+    if (!cell) return;
+    if (field === 'price') {
+      cell.textContent = formatPrice(product.price);
+    } else {
+      cell.textContent = product[field] != null ? String(product[field]) : '';
+    }
+  });
 }

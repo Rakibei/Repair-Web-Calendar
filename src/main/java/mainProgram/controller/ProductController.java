@@ -25,8 +25,8 @@ public class ProductController {
   }
 
   // Methods
-  /** @param product the product object to create **/
-  /** @return ResponseEntity containing the created product if successful, or a bad request response **/
+  /** @param product the product object to create
+   * @return ResponseEntity containing the created product if successful, or a bad request response**/
   @PostMapping
   public ResponseEntity<Product> createProduct(@RequestBody Product product) {
     // Save the product to the database using the repository and its .save() method.
@@ -34,6 +34,15 @@ public class ProductController {
 
     // Return the saved product as a JSON response with HTTP 200 OK status.
     return ResponseEntity.ok(savedProduct);
+  }
+
+  // Get a single product by ID
+  @GetMapping("/{id}")
+  public ResponseEntity<Product> getProduct(@PathVariable int id) {
+    return productRepository
+      .findById(id)
+      .map(ResponseEntity::ok)
+      .orElse(ResponseEntity.notFound().build());
   }
 
   // Deletes a specific product from the database based on its ID.
