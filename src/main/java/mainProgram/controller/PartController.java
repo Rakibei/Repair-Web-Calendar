@@ -1,15 +1,15 @@
 package mainProgram.controller;
 
-import java.util.List;
 import mainProgram.repository.JobPartRepository;
 import mainProgram.repository.ProductRepository;
 import mainProgram.table.JobPart;
 import mainProgram.table.Product;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 // This file is optional and is purely if you want to access the table HTTP endpoint
 

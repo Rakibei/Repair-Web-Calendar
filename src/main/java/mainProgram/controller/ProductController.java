@@ -1,11 +1,11 @@
 package mainProgram.controller; // Project Organization
 
-import java.util.Map;
-/* --- Imports --- */
 import mainProgram.repository.ProductRepository;
 import mainProgram.table.Product;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /* --- PartController --- */
 // REST controller for handling product-related operations.

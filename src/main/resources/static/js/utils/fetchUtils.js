@@ -4,7 +4,7 @@ export async function handleFetchErrors(response) {
   if (response.ok) return response;
 
   // Default fallback error message (used if no specific case matches)
-  let message = 'Ukendt fejl.';
+  let message;
 
   // Match specific HTTP status codes to user-friendly error messages
   switch (response.status) {

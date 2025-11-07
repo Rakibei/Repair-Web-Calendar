@@ -1,13 +1,14 @@
 package mainProgram.initializer;
 
 import jakarta.annotation.PostConstruct;
-import java.util.Map;
-import java.util.TreeMap;
 import mainProgram.repository.JobStatusRepository;
 import mainProgram.table.JobStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Initializes the JobStatus table with default reference data if missing.

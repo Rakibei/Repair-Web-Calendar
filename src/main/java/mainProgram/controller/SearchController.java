@@ -1,11 +1,12 @@
 package mainProgram.controller;
 
-import java.util.List;
 import mainProgram.services.JobService;
 import mainProgram.services.productService;
 import mainProgram.table.Job;
 import mainProgram.table.Product;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/search")
