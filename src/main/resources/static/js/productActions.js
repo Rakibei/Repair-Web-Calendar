@@ -1,5 +1,5 @@
 // Imports
-import {handleFetchErrors} from '/utils/fetchUtils.js';
+import { handleFetchErrors } from '/utils/fetchUtils.js';
 
 /* --- DELETE PRODUCT --- */
 // Wait until the entire DOM (HTML structure) has loaded before running the script
@@ -231,7 +231,11 @@ async function refreshRowFromServer(row, productId) {
   } catch (err) {
     // Fallback to the last PUT response stored on the row
     if (row.dataset.updatedProduct) {
-      try { product = JSON.parse(row.dataset.updatedProduct); } catch (_) { /* ignore */ }
+      try {
+        product = JSON.parse(row.dataset.updatedProduct);
+      } catch (_) {
+        /* ignore */
+      }
     }
   }
 

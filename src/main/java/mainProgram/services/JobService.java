@@ -1,5 +1,6 @@
 package mainProgram.services;
 
+import java.util.List;
 import mainProgram.repository.JobPartRepository;
 import mainProgram.repository.JobRepository;
 import mainProgram.repository.ProductRepository;
@@ -7,8 +8,6 @@ import mainProgram.table.Job;
 import mainProgram.table.JobPart;
 import mainProgram.table.Product;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class JobService implements BaseSearchService<Job> {

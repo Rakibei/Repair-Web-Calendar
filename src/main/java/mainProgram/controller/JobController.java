@@ -1,5 +1,7 @@
 package mainProgram.controller;
 
+import java.util.List;
+import java.util.Map;
 import mainProgram.repository.JobRepository;
 import mainProgram.repository.JobStatusRepository;
 import mainProgram.services.JobService;
@@ -10,9 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * REST controller for managing job-related operations.

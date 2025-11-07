@@ -1,11 +1,10 @@
 package mainProgram.controller; // Project Organization
 
+import java.util.Map;
 import mainProgram.repository.ProductRepository;
 import mainProgram.table.Product;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 /* --- PartController --- */
 // REST controller for handling product-related operations.
@@ -39,10 +38,7 @@ public class ProductController {
   // Get a single product by ID
   @GetMapping("/{id}")
   public ResponseEntity<Product> getProduct(@PathVariable int id) {
-    return productRepository
-      .findById(id)
-      .map(ResponseEntity::ok)
-      .orElse(ResponseEntity.notFound().build());
+    return productRepository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
   }
 
   // Deletes a specific product from the database based on its ID.

@@ -1,7 +1,6 @@
 package mainProgram.table;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 /**

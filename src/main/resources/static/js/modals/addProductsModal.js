@@ -1,5 +1,5 @@
 // Imports
-import {handleFetchErrors} from '../utils/fetchUtils.js';
+import { handleFetchErrors } from '../utils/fetchUtils.js';
 
 // Handles the submission of the "Add Product" form on the product page.
 // Sends product data to the server via POST request.
