@@ -1,0 +1,4 @@
+- [ ] Code builds and tests pass locally
+- [ ] Formatting applied (Prettier)
+- [ ] Tests added/updated (if applicable)
+- [ ] Docs updated (if applicable)
