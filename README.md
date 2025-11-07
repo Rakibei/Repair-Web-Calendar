@@ -138,7 +138,7 @@ Formatting with Prettier is available via npm scripts (Node.js optional):
 - Templates not updating: ensure template cache is disabled (it is by default in this project) and you’re running in dev mode.
 
 ## License
-- TODO: Add a license file (e.g., MIT/Apache-2.0) and update `pom.xml` license metadata.
+This project is licensed under the MIT License. See the [`LICENSE`](./LICENSE) file for details.
 
 ## Acknowledgements
 - Generated sections based on Spring Boot conventions; see `HELP.md` for official references and guides.
