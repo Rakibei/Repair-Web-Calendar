@@ -37,6 +37,7 @@ Using Thymeleaf th:replace to include modal fragments from a `modals` template.
               th:data-job-customer-name="${job.customer_name}"
               th:data-job-customer-phone="${job.customer_phone}"
               th:data-job-work-time="${job.work_time_minutes}"
+              th:data-job-desc="${job.job_description}"
               th:data-job-price="${job.price_per_minute}"
               th:data-job-date="${#temporals.format(job.date, 'yyyy-MM-dd''T''HH:mm')}"
               th:data-job-status-id="${job.status.id}"

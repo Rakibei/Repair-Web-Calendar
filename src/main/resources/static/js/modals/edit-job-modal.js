@@ -29,12 +29,13 @@
       title: document.getElementById('title').value,
       customer_name: document.getElementById('customer_name').value,
       customer_phone: document.getElementById('customer_phone').value,
+      job_description: document.getElementById('job_description').value,
       work_time_minutes: parseInt(document.getElementById('work_time_minutes').value || '0', 10),
       price_per_minute: parseFloat(document.getElementById('price_per_minute').value || '0'),
       date: toIsoLocal(document.getElementById('date').value),
       status: { id: parseInt(document.getElementById('status_id').value, 10) },
     };
-
+    console.log(payload);
     // Perform PUT request to update the job
     fetch('/api/jobs/' + id, {
       method: 'PUT',
@@ -64,6 +65,7 @@
   window.openEditJobModal = function (job) {
     // Populate hidden job ID
     document.getElementById('jobId').value = job.id;
+    document.getElementById('job_description').value = job.job_description || '';
 
     // Populate simple text fields (use empty string fallback)
     document.getElementById('title').value = job.title || '';
