@@ -83,7 +83,7 @@ Before opening a PR, please:
 
 1. Rebase your branch on the latest `main` (or the active default branch).
 2. Ensure code builds: `mvn clean verify`.
-3. Run format check: `npx prettier --check .` (or format with `--write`).
+3. Run format check: `npm run prettier:check` (or format with `npm run prettier:write`).
 4. Run tests: `mvn test` and ensure green.
 5. Update `README.md` or other docs if behavior changes.
 6. Provide a clear PR description: what changed, why, and how to verify.

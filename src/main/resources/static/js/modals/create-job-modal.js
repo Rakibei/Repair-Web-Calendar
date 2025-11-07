@@ -27,14 +27,11 @@
       customer_name: document.getElementById('customerName').value,
       customer_phone: document.getElementById('customerPhone').value,
       job_description: document.getElementById('jobDescription').value,
-      work_time_minutes: parseInt(document.getElementById('workTime').value || '0', 10),
+      work_time_minutes: parseInt(document.getElementById('jobDuration').value || '0', 10),
       price_per_minute: parseFloat(document.getElementById('pricePerMin').value || '0'),
-      duration: parseFloat(document.getElementById('jobDuration').value || '0'),
       date: toIsoLocal(document.getElementById('jobDateTime').value),
       status: { id: parseInt(document.getElementById('jobStatus').value, 10) },
     };
-
-    console.log(payload);
 
     // Send POST request to create a new job entry
     fetch('/api/jobs', {
