@@ -153,7 +153,7 @@ Using Thymeleaf th:replace to include modal fragments from a `modals` template.
               <td class="w-30">
                 <p class="m-1" th:text="${jp.product.price}"></p>
               </td>
-              <td class="w-30" th:with="result=${jp.product.price * jp.quantity}">
+              <td class="w-30" th:with="result=${jp.product.price * jp.quantity}" th:attr="data-total=${result}">
                 <p class="m-1" th:text="${result}"></p>
               </td>
             </tr>
@@ -169,16 +169,16 @@ Using Thymeleaf th:replace to include modal fragments from a `modals` template.
         <!-- Left Side: Button to add a product. You might wire this to a modal or product selector. -->
         <button id="add-product-btn" type="button" class="btn btn-primary">Tilføj Produkt</button>
 
-        <!-- Right Side: Totals table (static values here). Replace with computed values if needed. -->
+        <!-- Right Side: Totals table (dynamic) -->
         <table class="table table-borderless mb-0" style="width: auto">
           <tbody>
             <tr>
               <td class="fs-5"><b>Pris:</b></td>
-              <td class="fs-5">1.539,90 Kr.</td>
+              <td class="fs-5"><span id="prisValue">0,00 Kr.</span></td>
             </tr>
             <tr>
               <td class="fs-5"><b>Moms:</b></td>
-              <td class="fs-5">384,98 Kr.</td>
+              <td class="fs-5"><span id="momsValue">0,00 Kr.</span></td>
             </tr>
             <tr>
               <td></td>
@@ -186,7 +186,7 @@ Using Thymeleaf th:replace to include modal fragments from a `modals` template.
             </tr>
             <tr>
               <td class="fs-5"><b>Total:</b></td>
-              <td class="fs-5"><b>1.924,88 Kr.</b></td>
+              <td class="fs-5"><b><span id="totalValue">0,00 Kr.</span></b></td>
             </tr>
           </tbody>
         </table>
@@ -209,5 +209,66 @@ Using Thymeleaf th:replace to include modal fragments from a `modals` template.
 
     <!-- Inline script: small DOM manipulation and wiring for edit buttons and status styling -->
     <script src="/js/job-description-script.js"></script>
+
+    <!-- Dynamic totals calculation script: sums product totals, computes moms (25%), and grand total -->
+    <script>
+      (function () {
+        function formatDKK(value) {
+          try {
+            return new Intl.NumberFormat('da-DK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value) + ' Kr.';
+          } catch (e) {
+            // Fallback if Intl is not available
+            const fixed = (Math.round((value + Number.EPSILON) * 100) / 100).toFixed(2);
+            // Replace dot with comma for Danish decimal
+            const dk = fixed.replace('.', ',');
+            return dk + ' Kr.';
+          }
+        }
+
+        function computeTotals() {
+          var sum = 0;
+          document.querySelectorAll('td[data-total]').forEach(function (td) {
+            var v = parseFloat(td.getAttribute('data-total'));
+            if (!isNaN(v)) sum += v;
+          });
+          var moms = sum * 0.25;
+          var total = sum + moms;
+
+          var prisEl = document.getElementById('prisValue');
+          var momsEl = document.getElementById('momsValue');
+          var totalEl = document.getElementById('totalValue');
+          if (prisEl) prisEl.textContent = formatDKK(sum);
+          if (momsEl) momsEl.textContent = formatDKK(moms);
+          if (totalEl) totalEl.textContent = formatDKK(total);
+        }
+
+        // Initial calculation when DOM is ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', computeTotals);
+        } else {
+          computeTotals();
+        }
+
+        // Recalculate on dynamic changes to the products table
+        var tbody = document.querySelector('.product-table-content-container tbody');
+        if (tbody && 'MutationObserver' in window) {
+          var scheduled = false;
+          var observer = new MutationObserver(function () {
+            if (!scheduled) {
+              scheduled = true;
+              requestAnimationFrame(function () {
+                scheduled = false;
+                computeTotals();
+              });
+            }
+          });
+          observer.observe(tbody, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-total'] });
+        }
+
+        // Allow external scripts (e.g., add/remove product modals) to trigger a recompute
+        document.addEventListener('jobParts:updated', computeTotals);
+        window.recomputeJobTotals = computeTotals; // optional: expose for manual triggers
+      })();
+    </script>
   </body>
 </html>

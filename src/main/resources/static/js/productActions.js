@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Confirmation: Ask user to confirm deletion
+      const confirmed = window.confirm('Er du sikker på at du vil slette dette produkt? Dette kan ikke fortrydes');
+      if (!confirmed) {
+        return; // User canceled deletion
+      }
+
       try {
         // Send a DELETE request to the backend API "ProductController.java" to remove the product
         const response = await fetch(`/api/products/${productId}`, {
@@ -86,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editIcon.textContent = `save`;
 
         // Change button style to indicate active editing
-        button.classList.replace(`btn-outline-dark`, `btn-dark`);
+        button.classList.replace(`btn-dark`, `btn-outline-dark`);
 
         // Enable editing for each editable cell
         cells.forEach((cell) => {
@@ -143,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editIcon.textContent = 'edit_square';
 
         // Reset button style to normal
-        button.classList.replace('btn-dark', 'btn-outline-dark');
+        button.classList.replace('btn-outline-dark', 'btn-dark');
 
         // Disable editing for all cells and remove original value data
         cells.forEach((cell) => {

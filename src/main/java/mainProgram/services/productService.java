@@ -19,6 +19,7 @@ public class productService implements BaseSearchService<Product> {
     if (keyword == null || keyword.isBlank()) {
       return List.of();
     }
-    return productRepository.findByNameContainingIgnoreCase(keyword);
+    // Multi-field search: productNumber, name, EAN, type
+    return productRepository.search(keyword);
   }
 }
