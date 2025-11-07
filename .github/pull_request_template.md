@@ -1,6 +1,6 @@
 ### Summary
 
-Describe the problem this PR solves and the approach you took.
+Describe what this PR does.
 
 ### Type of change
 
