@@ -243,7 +243,7 @@ function translateStatusName(input) {
     1: 'Ikke Indleveret',
     2: 'Indleveret',
     3: 'Igangværende',
-    4: 'Mangler del',
+    4: 'Mangler Del',
     5: 'Færdig',
     6: 'Afhentet',
   };

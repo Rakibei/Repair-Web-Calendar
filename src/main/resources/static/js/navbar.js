@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const faScript = document.createElement('script');
     faScript.src = 'https://kit.fontawesome.com/ffe0f0379f.js';
     faScript.crossOrigin = 'anonymous';
+    faScript.defer = true; // avoid blocking parsing
     document.head.appendChild(faScript);
 
     // Utility: ensure the CSS link exists and load it, return a Promise
@@ -62,6 +63,23 @@ document.addEventListener('DOMContentLoaded', function () {
       // Prevent duplicates
       if (document.querySelector('.sidebar-nav')) return;
 
+      const onCalendar = (location.pathname || '').startsWith('/kalender');
+      const legendHTML = onCalendar
+        ? `
+              <div class="status-legend" role="region" aria-label="Job status farveguide">
+                <div class="legend-title">Status guide</div>
+                <ul class="legend-list">
+                  <li class="legend-item"><span class="legend-dot" style="--dot:#f65d60"></span><span class="legend-label">Ikke Indleveret</span></li>
+                  <li class="legend-item"><span class="legend-dot" style="--dot:#feb568"></span><span class="legend-label">Indleveret</span></li>
+                  <li class="legend-item"><span class="legend-dot" style="--dot:#0088ff"></span><span class="legend-label">Igangværende</span></li>
+                  <li class="legend-item"><span class="legend-dot" style="--dot:#4b41c8"></span><span class="legend-label">Mangler Del</span></li>
+                  <li class="legend-item"><span class="legend-dot" style="--dot:#32a759"></span><span class="legend-label">Færdig</span></li>
+                  <li class="legend-item"><span class="legend-dot" style="--dot:#939292"></span><span class="legend-label">Afhentet</span></li>
+                </ul>
+              </div>
+            `
+        : '';
+
       const navbarHTML = `
             <nav class="sidebar-nav" aria-hidden="false">
                 <div class="nav-header">
@@ -75,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <li class="nav-item"><a class="nav-link" href="/jobliste"><span class="nav-text">Job Liste</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/produktliste"><span class="nav-text">Produkter</span></a></li>
                 </ul>
+                ${legendHTML}
             </nav>
         `;
 
@@ -83,43 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.body.classList.add('with-navbar', 'content-push');
 
       navbar.style.transform = 'translateX(0)';
-
-      // Dynamic navbar
-      /** const closeBtn = document.getElementById('close-navbar');
-      if (closeBtn) {
-        closeBtn.addEventListener('click', function () {
-          const navbar = document.querySelector('.sidebar-nav');
-          if (navbar) {
-            navbar.style.transform = 'translateX(-100%)';
-            document.body.classList.remove('content-push');
-
-            setTimeout(() => {
-              navbar.remove();
-              document.body.classList.remove('with-navbar');
-              showOpenButton();
-            }, 300);
-          }
-        });
-      } **/
     }
-
-    /** function showOpenButton() {
-      if (!document.getElementById('open-navbar')) {
-        const openBtn = document.createElement('button');
-        openBtn.id = 'open-navbar';
-        openBtn.className = 'open-navbar-btn fa-solid fa-angles-right';
-        openBtn.setAttribute('aria-label', 'Open navbar');
-        document.body.appendChild(openBtn);
-
-        openBtn.addEventListener('click', function () {
-          openBtn.remove();
-          // ensure CSS is present before re-inserting
-          ensureNavbarCss()
-            .then(insertNavbar)
-            .catch(() => insertNavbar());
-        });
-      }
-    } **/
 
     // Ensure CSS is loaded before inserting the navbar (prevents flash / 404 issues due to relative path)
     ensureNavbarCss()
