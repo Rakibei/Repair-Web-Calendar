@@ -11,6 +11,7 @@
     <!-- Linking -->
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <link rel="stylesheet" href="/css/jobliste.css" />
+    <link rel="stylesheet" href="/css/context-menu.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -122,6 +123,7 @@
 
     <!-- Include the modal fragment so its markup is present in the DOM before modal JS runs -->
     <div th:replace="~{modals :: create-job-modal}"></div>
+    <div th:replace="~{modals :: full-edit-job-modal}"></div>
 
     <script src="/js/bootstrap.js"></script>
     <script src="/js/html.js"></script>
@@ -129,6 +131,7 @@
 
     <!-- Load the modal module AFTER the fragment and Bootstrap are present to avoid race conditions -->
     <script src="/js/modals/create-job-modal.js"></script>
+    <script src="/js/modals/full-edit-job-modal.js"></script>
 
     <script src="/js/context-menu.js"></script>
 

@@ -69,35 +69,35 @@ searchInput.addEventListener('input', () => {
 });
 
 async function runSearch() {
-    let matches;
-    const searchParam = searchInput.value.trim();
+  let matches;
+  const searchParam = searchInput.value.trim();
 
-    if (!searchParam) {
-        matches = await fetchAllRepairs();
-        // Sort by date ascending
-        matches.sort((a, b) => new Date(a.date) - new Date(b.date));
-    } else {
-        matches = await fetchSearchMatches(searchParam);
-    }
+  if (!searchParam) {
+    matches = await fetchAllRepairs();
+    // Sort by date ascending
+    matches.sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else {
+    matches = await fetchSearchMatches(searchParam);
+  }
 
-    const tableBody = document.getElementById('table-body');
-    tableBody.innerHTML = '';
+  const tableBody = document.getElementById('table-body');
+  tableBody.innerHTML = '';
 
-    if (!matches || !matches.length) {
-        const noMatchesMessage = document.createElement('td');
-        noMatchesMessage.innerHTML = 'Ingen reparationer fundet...';
-        noMatchesMessage.className = 'w-20';
-        tableBody.appendChild(noMatchesMessage);
-        return;
-    }
+  if (!matches || !matches.length) {
+    const noMatchesMessage = document.createElement('td');
+    noMatchesMessage.innerHTML = 'Ingen reparationer fundet...';
+    noMatchesMessage.className = 'w-20';
+    tableBody.appendChild(noMatchesMessage);
+    return;
+  }
 
-    matches.forEach((match) => {
-        const newRow = document.createElement('tr');
-        newRow.style.cursor = 'pointer';
-        newRow.dataset.href = `/jobliste/${match.id}`;
-        newRow.addEventListener('click', () => (window.location.href = newRow.dataset.href));
+  matches.forEach((match) => {
+    const newRow = document.createElement('tr');
+    newRow.style.cursor = 'pointer';
+    newRow.dataset.href = `/jobliste/${match.id}`;
+    newRow.addEventListener('click', () => (window.location.href = newRow.dataset.href));
 
-        newRow.innerHTML = `
+    newRow.innerHTML = `
       <td class="w-5">
         <div>
           <p class="fw-bolder mb-1">${match.id}</p>
@@ -123,10 +123,10 @@ async function runSearch() {
       <td class="w-30">${formatDate(match.date || '')}</td>
     `;
 
-        tableBody.appendChild(newRow);
-    });
+    tableBody.appendChild(newRow);
+  });
 
-    formatStatusBadges();
+  formatStatusBadges();
 }
 
 // Function to format the date

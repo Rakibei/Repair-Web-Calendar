@@ -2,6 +2,7 @@ package mainProgram.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import mainProgram.repository.JobRepository;
 import mainProgram.repository.JobStatusRepository;
 import mainProgram.services.JobService;
@@ -46,6 +47,11 @@ public class JobController {
   @ResponseBody
   public List<Job> getJobs() {
     return jobRepository.findAll();
+  }
+
+  @GetMapping("/api/jobs/{id}")
+  public ResponseEntity<Job> getJob(@PathVariable Integer id) {
+    return jobRepository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
   }
 
   /**

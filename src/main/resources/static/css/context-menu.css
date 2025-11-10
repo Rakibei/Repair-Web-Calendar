@@ -1,0 +1,41 @@
+.event-contextmenu {
+  position: absolute;
+  z-index: 2000;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  padding: 0.25rem 0;
+  display: none;
+}
+.event-contextmenu .dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  clear: both;
+  color: #212529;
+  text-decoration: none;
+  cursor: pointer;
+}
+.event-contextmenu .dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+.event-contextmenu .dropdown-divider {
+  height: 0;
+  margin: 0.25rem 0;
+  overflow: hidden;
+  border-top: 1px solid #e9ecef;
+}
+
+.event-contextmenu .event-submenu {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  z-index: 1100;
+}
+.event-contextmenu .dropdown-item {
+  cursor: pointer;
+  white-space: nowrap;
+}
