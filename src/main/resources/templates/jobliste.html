@@ -118,6 +118,8 @@
       </table>
     </div>
 
+    <div th:replace="fragments/context-menu :: job-context-menu"></div>
+
     <!-- Include the modal fragment so its markup is present in the DOM before modal JS runs -->
     <div th:replace="~{modals :: create-job-modal}"></div>
 
@@ -128,11 +130,11 @@
     <!-- Load the modal module AFTER the fragment and Bootstrap are present to avoid race conditions -->
     <script src="/js/modals/create-job-modal.js"></script>
 
+    <script src="/js/context-menu.js"></script>
+
     <!-- Navbar: injected by navbar.js which writes the DOM for the navigation -->
     <nav>
       <script src="/js/navbar.js"></script>
     </nav>
-
-    <!-- Table navigation and status badge wiring. -->
   </body>
 </html>

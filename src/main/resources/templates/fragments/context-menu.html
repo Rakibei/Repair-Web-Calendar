@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<!-- Context Menu Fragment -->
+<div th:fragment="job-context-menu" id="jobContextMenu" class="event-contextmenu"
+     style="display:none; position:absolute; z-index:9999;">
+    <a class="dropdown-item" data-action="open">Åbn</a>
+    <a class="dropdown-item" data-action="openNewTab">Åbn i ny fane</a>
+    <a class="dropdown-item" data-action="edit">Rediger</a>
+    <div class="dropdown-item position-relative" id="jobStatusSubmenuRoot">
+        <span>Set Status</span>
+        <span class="fa-solid fa-angle-right"></span>
+        <div id="jobStatusSubmenu" class="event-submenu"
+             style="display: none; position: absolute; top: 0; left: 100%; min-width: 180px;">
+            <a class="dropdown-item" data-action="setStatus" data-status="notDelivered">Ikke Indleveret</a>
+            <a class="dropdown-item" data-action="setStatus" data-status="delivered">Indleveret</a>
+            <a class="dropdown-item" data-action="setStatus" data-status="inProgress">Igangværende</a>
+            <a class="dropdown-item" data-action="setStatus" data-status="missingPart">Mangler del</a>
+            <a class="dropdown-item" data-action="setStatus" data-status="finished">Færdig</a>
+            <a class="dropdown-item" data-action="setStatus" data-status="pickedUp">Afhentet</a>
+        </div>
+    </div>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item text-danger" data-action="delete">Slet</a>
+</div>
+</body>
+</html>
