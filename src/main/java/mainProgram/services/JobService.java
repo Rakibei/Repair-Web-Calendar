@@ -59,7 +59,7 @@ public class JobService implements BaseSearchService<Job> {
     }
   }
 
-  /// Custom search function for job/ repair
+  /// Custom search function for job/repair
   @Override
   public List<Job> search(String keyword) {
     if (keyword == null || keyword.isBlank()) {

@@ -103,8 +103,6 @@ let modalProducts = [];
       quantity: item.quantity,
     }));
 
-    console.log(JSON.stringify(payload));
-
     // Create a request to send the paylond to the jobController
     fetch('/api/repairs/addProduct', {
       method: 'POST',
